@@ -15,6 +15,7 @@ double runtime = 0;
 double *Lands;
 int DataSize = 0;
 double totalLands = 0;
+int threadcnt = 0;
 
 struct GlobalResult
 {
@@ -28,6 +29,8 @@ struct MyParam
     DWORD threadID;
     GlobalResult *globalResult;
 };
+
+DWORD WINAPI F(LPVOID param);
 
 int main()
 {
@@ -72,5 +75,22 @@ int main()
     MyParam *threadParams = new MyParam[threadCount];
     HANDLE *threadHandle = new HANDLE[threadCount];
 
+    for (int i = 0; i < threadCount; i++)
+    {
+        threadParams[i].threadID = i + 1;
+        threadParams[i].globalResult = &globalResult;
+
+        threadHandle[i] = CreateThread(NULL, 0, F, &threadParams[i], 0, NULL);
+        threadcnt++;
+        if (!threadHandle[i])
+        {
+            cout << "Could not create thread, program will terminate." << endl;
+            exit(1);
+        }
+    }
     return 0;
+}
+
+DWORD WINAPI F(LPVOID param) {
+    
 }
