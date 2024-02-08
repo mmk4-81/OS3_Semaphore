@@ -10,6 +10,7 @@ using namespace std::chrono;
 
 #define Filepath "\\dataset\\"
 const int threadCount = thread::hardware_concurrency();
+HANDLE q, rw, r, threads, printSem, parent;
 
 double runtime = 0;
 double *Lands;
@@ -75,6 +76,13 @@ int main()
     MyParam *threadParams = new MyParam[threadCount];
     HANDLE *threadHandle = new HANDLE[threadCount];
 
+    q = CreateSemaphore(NULL, 1, 1, NULL);
+    rw = CreateSemaphore(NULL, 1, 1, NULL);
+    r = CreateSemaphore(NULL, 1, 1, NULL);
+    threads = CreateSemaphore(NULL, 1, 1, NULL);
+    printSem = CreateSemaphore(NULL, 0, 1, NULL);
+    parent = CreateSemaphore(NULL, 0, 1, NULL);
+
     for (int i = 0; i < threadCount; i++)
     {
         threadParams[i].threadID = i + 1;
@@ -91,8 +99,9 @@ int main()
     return 0;
 }
 
-DWORD WINAPI F(LPVOID param) {
-    MyParam* input = static_cast<MyParam*>(param);
+DWORD WINAPI F(LPVOID param)
+{
+    MyParam *input = static_cast<MyParam *>(param);
     DWORD threadID = input->threadID;
-    GlobalResult* globalResult = input->globalResult;
+    GlobalResult *globalResult = input->globalResult;
 }
