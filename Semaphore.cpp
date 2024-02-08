@@ -16,6 +16,17 @@ double* Lands;
 int DataSize = 0;
 double totalLands = 0;
 
+struct GlobalResult {
+    double* bestResult;
+    double bestDiff;
+    DWORD bestThreadID;
+};
+
+struct MyParam {
+    DWORD threadID;
+    GlobalResult* globalResult;
+};
+
 int main()
 {
     string filename;
@@ -48,6 +59,8 @@ int main()
         file >> Lands[i];
     }
     file.close();
+
+
 
     return 0;
 }
