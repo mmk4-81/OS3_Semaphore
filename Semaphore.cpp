@@ -120,6 +120,12 @@ int main()
         ReleaseSemaphore(parent, 1, NULL);
     }
 
+    
+    for (int i = 0; i < threadCount; i++) {
+        WaitForSingleObject(threadHandle[i], INFINITE);
+        CloseHandle(threadHandle[i]);
+    }
+
     return 0;
 }
 
