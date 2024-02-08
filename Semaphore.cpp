@@ -10,6 +10,8 @@ using namespace std::chrono;
 
 #define Filepath "\\dataset\\"
 
+double runtime = 0;
+
 int main()
 {
     string filename;
@@ -21,5 +23,9 @@ int main()
         cout << "Cannot open file: " << filename << endl;
         return 1;
     }
+
+    cout << "Enter runtime (seconds): ";
+    cin >> runtime;
+
     return 0;
 }
