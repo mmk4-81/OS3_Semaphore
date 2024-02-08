@@ -12,19 +12,21 @@ using namespace std::chrono;
 const int threadCount = thread::hardware_concurrency();
 
 double runtime = 0;
-double* Lands;
+double *Lands;
 int DataSize = 0;
 double totalLands = 0;
 
-struct GlobalResult {
-    double* bestResult;
+struct GlobalResult
+{
+    double *bestResult;
     double bestDiff;
     DWORD bestThreadID;
 };
 
-struct MyParam {
+struct MyParam
+{
     DWORD threadID;
-    GlobalResult* globalResult;
+    GlobalResult *globalResult;
 };
 
 int main()
@@ -60,7 +62,15 @@ int main()
     }
     file.close();
 
+    int n = DataSize + 4;
 
+    GlobalResult globalResult;
+    globalResult.bestResult = new double[n]();
+    globalResult.bestDiff = -1;
+    globalResult.bestThreadID = 0;
+
+    MyParam *threadParams = new MyParam[threadCount];
+    HANDLE *threadHandle = new HANDLE[threadCount];
 
     return 0;
 }
