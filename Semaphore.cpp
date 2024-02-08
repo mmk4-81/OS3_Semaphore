@@ -35,6 +35,13 @@ struct MyParam
 
 DWORD WINAPI F(LPVOID param);
 
+void print(const GlobalResult &result)
+{
+    cout << "Best result for ThreadID " << result.bestThreadID << ":" << endl;
+    cout << "Difference: " << result.bestDiff << endl;
+    cout << "-------------------------------------------------------------------------------------------------------" << endl;
+}
+
 int main()
 {
     string filename;
@@ -109,6 +116,7 @@ int main()
             break;
         }
         ReleaseSemaphore(threads, 1, NULL);
+        print(globalResult);
         ReleaseSemaphore(parent, 1, NULL);
     }
 
@@ -209,7 +217,8 @@ DWORD WINAPI F(LPVOID param)
 
     WaitForSingleObject(threads, INFINITE);
 
-    if (threadcnt == 1) {
+    if (threadcnt == 1)
+    {
         endthreads = true;
         ReleaseSemaphore(printSem, 1, NULL);
     }
