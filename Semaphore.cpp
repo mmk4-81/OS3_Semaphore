@@ -92,5 +92,7 @@ int main()
 }
 
 DWORD WINAPI F(LPVOID param) {
-    
+    MyParam* input = static_cast<MyParam*>(param);
+    DWORD threadID = input->threadID;
+    GlobalResult* globalResult = input->globalResult;
 }
