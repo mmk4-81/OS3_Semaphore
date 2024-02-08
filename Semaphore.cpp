@@ -126,6 +126,19 @@ int main()
         CloseHandle(threadHandle[i]);
     }
 
+    cout << "\nfinal: \n";
+    print(globalResult);
+
+    delete[] threadParams;
+    delete[] threadHandle;
+    delete[] Lands;
+    CloseHandle(q);
+    CloseHandle(rw);
+    CloseHandle(r);
+    CloseHandle(printSem);
+    CloseHandle(threads);
+    CloseHandle(parent);
+
     return 0;
 }
 
