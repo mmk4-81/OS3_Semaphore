@@ -1,4 +1,6 @@
-## آذر 1402
+## December 2023
+
+
 # OS_3 : Semaphore
 
 - The same as the second project, but with the coordination of threads with the help of semaphore
